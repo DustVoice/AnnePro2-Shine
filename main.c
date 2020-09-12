@@ -87,7 +87,10 @@ ioline_t ledRows[NUM_ROW * 4] = {
  */
 typedef void (*profile)( led_t* );
 profile profiles[7] = {
-  standard, caps, fn, mouse, numpad, misc, gaming
+  standard, caps, fn, mouse, numpad, misc, gaming,
+  red, green, blue, rainbowHorizontal, rainbowVertical, 
+  animatedRainbowVertical, animatedRainbowWaterfall, 
+  animatedBreathing, animatedSpectrum
 };
 static uint8_t currentProfile = 0;
 static uint8_t amountOfProfiles = sizeof(profiles)/sizeof(profile);
@@ -274,6 +277,22 @@ inline uint8_t min(uint8_t a, uint8_t b){
  */
 void animationCallback(GPTDriver* _driver){
   profile currentFunction = profiles[currentProfile];
+  if(currentFunction == animatedRainbowVertical){
+    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/5);
+    currentFunction(ledColors);
+  }else if(currentFunction == animatedRainbowWaterfall){
+    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/20);
+    currentFunction(ledColors);
+  }else if(currentFunction == animatedRainbowFlow){
+    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/30);
+    currentFunction(ledColors);
+  }else if(currentFunction == animatedSpectrum){
+    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/15);
+    currentFunction(ledColors);
+  }else if(currentFunction == animatedBreathing){
+    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/30);
+    currentFunction(ledColors);
+  }
 }
 
 inline void sPWM(uint8_t cycle, uint8_t currentCount, uint8_t start, ioline_t port){
