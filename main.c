@@ -274,22 +274,6 @@ inline uint8_t min(uint8_t a, uint8_t b){
  */
 void animationCallback(GPTDriver* _driver){
   profile currentFunction = profiles[currentProfile];
-  if(currentFunction == animatedRainbowVertical){
-    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/5);
-    currentFunction(ledColors);
-  }else if(currentFunction == animatedRainbowWaterfall){
-    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/20);
-    currentFunction(ledColors);
-  }else if(currentFunction == animatedRainbowFlow){
-    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/30);
-    currentFunction(ledColors);
-  }else if(currentFunction == animatedSpectrum){
-    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/15);
-    currentFunction(ledColors);
-  }else if(currentFunction == animatedBreathing){
-    gptChangeInterval(_driver, ANIMATION_TIMER_FREQUENCY/30);
-    currentFunction(ledColors);
-  }
 }
 
 inline void sPWM(uint8_t cycle, uint8_t currentCount, uint8_t start, ioline_t port){
